@@ -117,14 +117,14 @@ end
 # Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
 # Input: haystack = "hello", needle = "ll" 	Output: 2
 def str_str(haystack, needle)
-    text, pattern = haystack, needle
-    (0..text.length - pattern.length).each do |index|
-        j = 0
-        while j < pattern.length && pattern[j] == text[index + j]
-            return index
-        end
-        return -1 if j == pattern.length
+    return 0 if needle.empty?
+    pattern_length = needle.length
+    i = 0
+    while i <= (haystack.length - pattern_length) do
+         return i if needle == haystack.slice(i, pattern_length)
+         i += 1
     end
+    return -1
 end
 #--------------------------------------------------------------------------------------------
 # String to Integer (atoi)
