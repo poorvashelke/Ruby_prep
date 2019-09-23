@@ -226,7 +226,26 @@ end
 # which together with x-axis forms a container, such that the container contains the most water.
 # Note: You may not slant the container and n is at least 2.
 
- 
+def max_area(height)
+    first = 0
+    last = height.size - 1
+    max = 0
+  
+    while first < last
+        # how far apart the first and last are
+        diff = last - first
+        # the lowest height
+        lowest = [height[first], height[last]].min
+        # the current area
+        current = lowest * diff
+
+        max = [max, current].max
+        # whichever side is smaller, we move closer together
+        height[first] == lowest ? first += 1 : last -= 1
+    end
+  
+    max
+end 
 #--------------------------------------------------------------------------------------------
 # Find three closest elements from given three sorted arrays
 # Given three sorted arrays A[], B[] and C[], find 3 elements i, j and k from A, B and C respectively such that
