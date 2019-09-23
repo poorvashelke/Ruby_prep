@@ -124,36 +124,18 @@ end
 # @param {Integer[]} nums
 # @param {Integer} k
 # @return {Integer}
-def find_pairs(nums, k) 		T(n) = O(n)
-    count = 0
-    max_num = 1000
-    hash = Hash.new{|h,k| h[k] = false}
-    nums.each do |num|
-        hash[num] = true
-    end
-    nums.each do |ele|
-        count += 1 if ele - k >= 0 && hash[ele - k]
-        count += 1 if ele + k >= max_num && hash[ele + k]
-    end
-    count
-end   					
-ORRRRR
-return 0 if k < 0 			T(n) = O(n logn)
-    nums = nums.sort
-    count = 0
-    left = right = 0
-    while right < nums.size
-        if nums[right] - nums[left] == k
-            count += 1
-            left += 1
-            right += 1
-        elsif nums[right] - nums[left] > k
-            left += 1
-        else
-            right += 1
-        end
-    end
-    count
+def find_pairs(nums, k) 		
+        return 0 if nums == nil || nums.empty? || k < 0
+	pairs, hash = 0, Hash.new(0)
+    
+	nums.each { |n| hash[n] += 1 }
+    
+	hash.each do |key, value| 
+		if k == 0 then pairs += 1 if value >= 2
+		else pairs += 1 if hash.key?(key+k) end
+	end
+	pairs
+ end
 #--------------------------------------------------------------------------------------------
 # Sort Colors
 # Given an array with n objects colored red, white or blue, sort them in-place so that objects of the
