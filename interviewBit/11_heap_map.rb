@@ -98,6 +98,37 @@ end
 # cache.put(4, 4);    // evicts key 1
 # cache.get(1);       // returns -1 (not found)
 # cache.get(3);       // returns 3
+class LRUCache
+  # Initialize your data structure here
+  # @param {Integer} capacity
+  def initialize(capacity)
+    @capacity = capacity
+    @elems = {}
+  end
+
+  # @param {Integer} key
+  # @return {Integer}
+  def get(key)
+    val = @elems.delete key
+    if val
+      @elems[key] = val
+    else
+      -1
+    end
+  end
+
+  # @param {Integer} key
+  # @param {Integer} value
+  # @return {Void}
+  def put(key, value)
+    @elems.delete key
+    @elems[key] = value
+    @elems.delete @elems.first.first if @elems.size > @capacity 
+  end
+end
+---------------------------
+
+
 https://gist.github.com/ralbt/1f5e808a32fbe7c3a37b18b99da1982c
  class LRUCache
   attr_reader :dll, :hash, :count, :capacity
