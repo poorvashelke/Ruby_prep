@@ -97,20 +97,20 @@ end
 # 322. Coin Change
 # You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
 # Input: coins = [1, 2, 5], amount = 11	Output: 3 Explanation: 11 = 5 + 5 + 1
-def coin_change(coins, amount)
-    dp = Array.new(amount + 1, -1)
-    dp[0] = 0
+# def coin_change(coins, amount)
+#     dp = Array.new(amount + 1, -1)
+#     dp[0] = 0
     
-    coins.each do |coin|
-        # puts "dp: #{dp}"
-        1.upto(amount) do |i|
-            next if i < coin || dp[i - coin] == -1
-            dp[i] = dp[i - coin] + 1 if dp[i] == -1 || dp[i - coin] + 1 < dp[i]
-            puts "\ti: #{i} dp: #{dp} dp[i - coin]: #{dp[i - coin]}"
-        end
-    end
-    dp[amount]
-end
+#     coins.each do |coin|
+#         # puts "dp: #{dp}"
+#         1.upto(amount) do |i|
+#             next if i < coin || dp[i - coin] == -1
+#             dp[i] = dp[i - coin] + 1 if dp[i] == -1 || dp[i - coin] + 1 < dp[i]
+#             puts "\ti: #{i} dp: #{dp} dp[i - coin]: #{dp[i - coin]}"
+#         end
+#     end
+#     dp[amount]
+# end
 # Another soln
 def coin_change(coins, amount)
     return 0 if amount == 0
@@ -135,7 +135,18 @@ end
 # 5=2+2+1
 # 5=2+1+1+1
 # 5=1+1+1+1+1
-
+def change(amount, coins)
+    dp = Array.new(amount + 1,0)
+    dp[0] = 1
+    (1..coins.size).each do |i|
+        (1..amount).each do |j|
+          if coins[i - 1] <= j
+              dp[j] = dp[j] + dp[j - coins[i-1]]
+          end
+        end
+    end
+    dp[amount]
+end
 
 # 152. Maximum Product Subarray
 # Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
