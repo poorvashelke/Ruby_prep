@@ -154,24 +154,25 @@ public class Solution {
 # @param {String} t
 # @return {String}
 def min_window(s, t)
-    current_set = {}
-    t.each_char do |c|
-        current_set[c] ||= 0
-        current_set[c] -= 1
+    current_set = Hash.new(0)
+    t.each_char do |char|
+        current_set[char] += 1
     end
-    valid_count = current_set.keys.length * -1
-    left = 0
+    valid_count = current_set.size
+    min_str = ""
+    left = 0  #to take substring from s
     min_window = ""
     s.each_char.with_index do |c, right_index|
         if current_set[c]
-            current_set[c] += 1
-            valid_count += 1 if current_set[c] == 0
+            current_set[c] -= 1
+            valid_count -= 1 if current_set[c] == 0
         end
-        if valid_count >= 0
-            while valid_count >= 0
+        if valid_count <= 0
+#         finding starting index of 1st t-char found in S
+            while valid_count <= 0
                 if current_set[s[left]]
-                    current_set[s[left]] -= 1
-                    valid_count -= 1 if current_set[s[left]] == -1
+                    current_set[s[left]] += 1
+                    valid_count += 1 if current_set[s[left]] == 1
                 end
                 left += 1
             end
