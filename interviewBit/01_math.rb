@@ -42,6 +42,18 @@ end
         end
         false
     end
+
+def square_root(num)
+    return num if num <= 1
+    i = result = 1
+   while result <= num
+        i += 1
+        result = i * i
+   end
+   i - 1
+end
+
+p square_root(5) => 2 | 13 => 3
 #----------------------------------------------------------------------------------
 # Excel Column Number
 # Given a column title as appears in an Excel sheet, return its corresponding column number.
