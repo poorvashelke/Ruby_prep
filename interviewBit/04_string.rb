@@ -99,7 +99,7 @@ def count_and_say(n)
     for i in 3..n
         temp = "" # for adding to term in string
         count = 1
-        for j in 1..result.length + 1
+        for j in 1...result.length + 1
             if result[j] != result[j - 1]
                 temp += count.to_s
                 temp += result[j - 1]
