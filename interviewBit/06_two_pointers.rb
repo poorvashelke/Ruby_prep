@@ -188,16 +188,25 @@ p three_sum([1,4,6,10,8], 22)  op= [[4, 8, 10], [6, 6, 10], [6, 8, 8]]
 #          2 -3 1
 def sum_zero(nums)
     res = []
-    (0...nums.size - 2).each do |i|
-        (i + 1...nums.size).each do |j|
-            third = nums[i] - nums[j]
-            if nums.include?(third) && nums[i] - nums[j] - third == 0
-                temp = [nums[i], nums[j], third].sort
-                res << temp if !res.include?(temp)
+    nums.sort!
+    (0...nums.size).each do |i|
+        low = i + 1
+        high = nums.size - 1
+        while low < high
+            # puts " #{nums[i]}: #{nums[j]}: #{third}"
+            total = nums[i] + nums[low] + nums[high]
+            if total == 0
+                res << [nums[i], nums[low], nums[high]]
+                low += 1
+                high -= 1
+            elsif total < 0
+                low += 1
+            else
+                high -= 1
             end
         end
     end
-    res
+    res.uniq
 end
 
 p sum_zero([1,2,4,3,6,10,5])  => [[1, 3, 4], [1, 5, 6]]
