@@ -346,6 +346,29 @@ def set_zeroes(matrix)
     matrix
 end
 #-------------------------------------------------------------------------------------
+48. Rotate Image  Rotate the image by 90 degrees (clockwise).
+# You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+#   [1,2,3],
+#   [4,5,6],
+#   [7,8,9]
+# rotate the input matrix in-place such that it becomes:
+#   [7,4,1],
+#   [8,5,2],
+#   [9,6,3]
+
+def rotate(matrix)
+    size = matrix.size - 1
+    (0...size/2 + 1).each do |i|
+        (i...size - i).each do |j|
+            temp = matrix[i][j]
+            matrix[i][j] = matrix[size - j][i]
+            matrix[size - j][i] = matrix[size - i][size - j]
+            matrix[size - i][size - j] = matrix[j][size - i]
+            matrix[j][size - i] = temp
+        end
+    end
+end
+#-------------------------------------------------------------------------------------
 # Anti Diagonals || Zig-Zag
 # Input : 1 2
 #         3 4
